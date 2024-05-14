@@ -43,4 +43,34 @@ class Quiz {
         //return 'true' or 'false' when currentQuestionIndex 
         //is less than the questions array length
     }
+
+//*************************Day 02**************/
+
+    filterQuestionsByDifficulty(difficulty){
+        if (difficulty >= 1 && difficulty <= 3 ){
+            this.questions = this.questions.filter(questions => questions.difficulty === difficulty);
+    }
+    }
+    averageDifficulty(){
+        const avgTotal = this.questions.reduce((acc, question) => {
+            return acc + question.difficulty;
+        },0);
+        return avgTotal / this.questions.length;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
