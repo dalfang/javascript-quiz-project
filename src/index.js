@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionContainer = document.querySelector("#question");
   const choiceContainer = document.querySelector("#choices");
   const nextButton = document.querySelector("#nextButton");
+  const restartButton = document.querySelector("#restartButton")
 
   // End view elements
   const resultContainer = document.querySelector("#result");
@@ -46,12 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
   /************  SHOW INITIAL CONTENT  ************/
 
   // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
-  const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
-  const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+  //const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+  //const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
 
   // Display the time remaining in the time remaining container
-  const timeRemainingContainer = document.getElementById("timeRemaining");
-  timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+  //const timeRemainingContainer = document.getElementById("timeRemaining");
+  //timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 
   // Show first question
   showQuestion();
@@ -198,4 +199,58 @@ document.addEventListener("DOMContentLoaded", () => {
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${questions.length} correct answers!`; // This value is hardcoded as a placeholder
   }
   
+  
+const timeRemainingContainer = document.getElementById("timeRemaining");
+
+function updateTimer(){
+  quiz.timeRemaining = quizDuration;
+  
+  timer = setInterval (()=>{
+    console.log(quiz.timeRemaining);
+    if (quiz.timeRemaining > 0){
+        quiz.timeRemaining --;
+        const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+        const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+        timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+      
+      } 
+    else if (quiz.timeRemaining <= 0){
+      clearInterval(timer);
+      showResults();
+    }
+  },1000);
+}
+updateTimer();
+
+restartButton.addEventListener('click', ()=>{
+  endView.style.display = "none";
+  quizView.style.display = "flex";
+  
+  quiz.currentQuestionIndex = 0;
+  quiz.correctAnswers = 0;
+  quiz.shuffleQuestions();
+  showQuestion();
+  updateTimer()
+
+})
+
 });
+
+
+//const intervalId = setInterval(() => {
+//  timer -= 1;
+//  if (timer >=0) {
+//    startButton.disabled = true;
+//    timerElement.innerText = timer;
+//    if (timer === 9){
+//      showToast("⏰ Final countdown! ⏰")
+//    }
+//    else if (timer === 5){  
+//      showToast("Start the engines! 💥")
+//    }
+//  } else {
+//    showToast("Lift off! 🚀")
+//    startButton.disabled = false;
+//    clearInterval(intervalId);
+//  }
+//}, 1000);
