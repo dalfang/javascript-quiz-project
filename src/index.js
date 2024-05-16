@@ -237,20 +237,3 @@ restartButton.addEventListener('click', ()=>{
 });
 
 
-//const intervalId = setInterval(() => {
-//  timer -= 1;
-//  if (timer >=0) {
-//    startButton.disabled = true;
-//    timerElement.innerText = timer;
-//    if (timer === 9){
-//      showToast("⏰ Final countdown! ⏰")
-//    }
-//    else if (timer === 5){  
-//      showToast("Start the engines! 💥")
-//    }
-//  } else {
-//    showToast("Lift off! 🚀")
-//    startButton.disabled = false;
-//    clearInterval(intervalId);
-//  }
-//}, 1000);
